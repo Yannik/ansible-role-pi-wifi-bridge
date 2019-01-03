@@ -1,0 +1,31 @@
+- name: Install hostapd and bridge-utils
+  package: name={{ item }} state=present
+  with_items:
+    - hostapd
+    - bridge-utils
+
+- name: Install hostapd.conf
+  template:
+    src: hostapd.conf
+    dest: /etc/hostapd/hostapd.conf
+    mode: 0600
+
+- name: Install /etc/network/interfaces.d/wifi-bridge.conf
+  copy:
+    src: wifi-bridge.conf
+    dest: /etc/network/interfaces.d/wifi-bridge.conf
+
+- name: Enable hostapd in /etc/default/hostapd
+  lineinfile:
+    line: DAEMON_CONF="/etc/hostapd/hostapd.conf"
+    regexp: ^DAEMON_CONF=.*
+    insertafter: ^#DAEMON_CONF
+    path: /etc/default/hostapd
+  notify: Restart hostapd
+
+- name: Make sure hostapd service is enabled&started
+  service:
+    name: hostapd
+    enabled: yes
+    state: started
+
