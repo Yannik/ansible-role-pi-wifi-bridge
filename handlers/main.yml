@@ -1,2 +1,5 @@
+- name: Reload hostapd
+  service: name=hostapd state=reloaded
+
 - name: Restart hostapd
   service: name=hostapd state=restarted

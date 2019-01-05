@@ -18,6 +18,7 @@
     src: hostapd.conf
     dest: /etc/hostapd/hostapd.conf
     mode: 0600
+  notify: Reload hostapd
 
 - name: Install /etc/network/interfaces.d/wifi-bridge
   copy:
