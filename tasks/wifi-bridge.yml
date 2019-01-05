@@ -10,10 +10,10 @@
     dest: /etc/hostapd/hostapd.conf
     mode: 0600
 
-- name: Install /etc/network/interfaces.d/wifi-bridge.conf
+- name: Install /etc/network/interfaces.d/wifi-bridge
   copy:
-    src: wifi-bridge.conf
-    dest: /etc/network/interfaces.d/wifi-bridge.conf
+    src: wifi-bridge
+    dest: /etc/network/interfaces.d/wifi-bridge
 
 - name: Enable hostapd in /etc/default/hostapd
   lineinfile:
