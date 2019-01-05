@@ -4,6 +4,15 @@
     - hostapd
     - bridge-utils
 
+# Otherwise, wifi authentication often fails because the pi does not
+# have enough entropy available!
+# source: https://www.raspberrypi.org/forums/viewtopic.php?t=83079
+- name: Install rng-tools
+  package: name=rng-tools state=present
+
+- name: Enable rng-tools
+  service: name=rng-tools enabled=yes state=started
+
 - name: Install hostapd.conf
   template:
     src: hostapd.conf
